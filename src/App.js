@@ -8,6 +8,10 @@ const App = () => {
   const [timePerQuestion, setTimePerQuestion] = useState(30);
   const [questions, setQuestions] = useState([]);
   const [quizStarted, setQuizStarted] = useState(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [score, setScore] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(timePerQuestion);
 }
 
 useEffect(() => {
@@ -33,6 +37,16 @@ const startQuiz = () => {
   setQuizStarted(true);
   fetchQuestions();
 };
+
+const handleAnswerSelect = (answer) => {
+  setSelectedAnswer(answer);
+};
+
+const handleNext = () => {
+  if (selectedAnswer === questions[currentQuestionIndex]?.correct_answer) {
+    setScore((prev) => prev + 1);
+  }
+}
 
 return (
   <div className="container">
@@ -98,6 +112,50 @@ return (
           </button>
         </div>
  )}
+   {quizStarted && (
+        <div className="quiz">
+          <div className="timer">
+            <div className="progress">
+              <div
+                className="progress-bar"
+                style={{ width: `${(timeLeft / timePerQuestion) * 100}%` }}
+              ></div>
+              <span className="progress-text">{timeLeft}s</span>
+            </div>
+          </div>
+          <div className="question-wrapper">
+            <div className="number">
+              Question {currentQuestionIndex + 1}/{questions.length}
+            </div>
+            <div className="question">
+              {questions[currentQuestionIndex]?.question}
+            </div>
+          </div>
+          <div className="answer-wrapper">
+            {questions[currentQuestionIndex]?.allAnswers.map((answer, idx) => (
+              <div
+                key={idx}
+                className={`answer ${
+                  selectedAnswer === answer ? "selected" : ""
+                }`}
+                onClick={() => handleAnswerSelect(answer)}
+              >
+                <span className="text">{answer}</span>
+                <span className="checkbox">
+                  <i className="fas fa-check"></i>
+                </span>
+              </div>
+            ))}
+          </div>
+          <button
+            className="btn submit"
+            disabled={!selectedAnswer}
+            onClick={handleNext}
+          >
+            Next
+          </button>
+        </div>
+      )}
  </div>
 );
 
