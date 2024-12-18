@@ -34,5 +34,74 @@ const startQuiz = () => {
   fetchQuestions();
 };
 
+return (
+  <div className="container">
+    {!quizStarted && (
+      <div className="start-screen">
+        <h1 className="heading">Quiz App</h1>
+        <div className="settings">
+          <label htmlFor="num-questions">Number of Questions:</label>
+          <select
+            id="num-questions"
+            value={numQuestions}
+            onChange={(e) => setNumQuestions(e.target.value)}
+          >
+            {[5, 10, 15, 20, 30, 40, 50].map((num) => (
+              <option key={num} value={num}>
+                {num}
+              </option>
+            ))}
+          </select>
+          <label htmlFor="category">Select Category:</label>
+            <select
+              id="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="17">Science and Nature</option>
+              <option value="18">Computers</option>
+              <option value="19">Mathematics</option>
+              <option value="20">Mythology</option>
+              <option value="21">Sports</option>
+              <option value="22">Geography</option>
+              <option value="23">History</option>
+              <option value="24">Politics</option>
+              <option value="25">Art</option>
+              <option value="28">Vehicles</option>
+            </select>
+            <label htmlFor="difficulty">Select Difficulty:</label>
+            <select
+              id="difficulty"
+              value={difficulty}
+              onChange={(e) => setDifficulty(e.target.value)}
+            >
+              <option value="">Any difficulty</option>
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+            <label htmlFor="time">Select Time per Question:</label>
+            <select
+              id="time"
+              value={timePerQuestion}
+              onChange={(e) => setTimePerQuestion(e.target.value)}
+            >
+              {[10, 15, 20, 25, 30, 60].map((time) => (
+                <option key={time} value={time}>
+                  {time} seconds
+                </option>
+              ))}
+            </select>
+          </div>
+          <button className="btn start" onClick={startQuiz}>
+            Start Quiz
+          </button>
+        </div>
+ )}
+ </div>
+);
+
+
+
 
 export default App;
