@@ -18,6 +18,16 @@ useEffect(() => {
   if (timeLeft === 0) handleNext();
 }, [timeLeft, quizStarted]);
 
+const fetchQuestions = async () => {
+  const url = `https://opentdb.com/api.php?amount=${numQuestions}&category=${category}&difficulty=${difficulty}&type=multiple`;
+  const response = await fetch(url);
+  const data = await response.json();
+  const formattedQuestions = data.results.map((q) => ({
+    ...q,
+    allAnswers: [...q.incorrect_answers, q.correct_answer]
+  }));
+  setQuestions(formattedQuestions);
+};
 
 const startQuiz = () => {
   setQuizStarted(true);
