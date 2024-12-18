@@ -46,11 +46,33 @@ const handleNext = () => {
   if (selectedAnswer === questions[currentQuestionIndex]?.correct_answer) {
     setScore((prev) => prev + 1);
   }
-}
+  if (currentQuestionIndex + 1 < questions.length) {
+    setCurrentQuestionIndex((prev) => prev + 1);
+    setSelectedAnswer(null);
+    setTimeLeft(timePerQuestion);
+  } else {
+    setQuizEnded(true);
+    setQuizStarted(false);
+  }
+};
+
+const restartQuiz = () => {
+  setNumQuestions(5);
+  setCategory("");
+  setDifficulty("");
+  setTimePerQuestion(30);
+  setQuestions([]);
+  setCurrentQuestionIndex(0);
+  setSelectedAnswer(null);
+  setScore(0);
+  setTimeLeft(30);
+  setQuizStarted(false);
+  setQuizEnded(false);
+};
 
 return (
   <div className="container">
-    {!quizStarted && (
+    {!quizStarted && !quizEnded && (
       <div className="start-screen">
         <h1 className="heading">Quiz App</h1>
         <div className="settings">
@@ -112,7 +134,7 @@ return (
           </button>
         </div>
  )}
-   {quizStarted && (
+   {quizStarted && !quizEnded && (
         <div className="quiz">
           <div className="timer">
             <div className="progress">
@@ -156,8 +178,35 @@ return (
           </button>
         </div>
       )}
- </div>
-);
+ {quizEnded && (
+  <div className="end-screen">
+    <h1 className="heading">Quiz App</h1>
+    <div className="score">
+      Your score: {score}/{questions.length}
+    </div>
+    <div className="correct-answers">
+      <h2>Review Correct Answers</h2>
+      <ul>
+        {questions.map((question, idx) => (
+          <li key={idx} className="review-item">
+            <p>
+              <strong>Q{idx + 1}:</strong> {question.question}
+            </p>
+            <p>
+              <strong>Correct Answer:</strong> {question.correct_answer}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <button className="btn restart" onClick={restartQuiz}>
+      Restart Quiz
+    </button>
+  </div>
+)}
+    </div>
+  );
+
 
 
 
