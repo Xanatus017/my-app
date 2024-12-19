@@ -142,3 +142,19 @@ body {
   border-color: #7e6aff;
   background-color: #efe4ff;
 }
+
+.end-screen .score {
+  color: #7b00ff;
+  font-size: 25px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.message {
+  color: #414141;
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 50px;
+  text-align: center;
+}
