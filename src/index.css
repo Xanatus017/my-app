@@ -52,3 +52,52 @@ body {
   font-size: 14px;
   background-color: #f9f9f9;
 }
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  margin-top: 15px;
+  background: linear-gradient(to right, #7b00ff, #881ef9);
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+.btn:hover {
+  transform: scale(1.02);
+  background: linear-gradient(to right, #9431ff, #a856ff);
+}
+
+.quiz {
+  padding: 30px;
+}
+
+.timer .progress {
+  position: relative;
+  height: 24px;
+  border-radius: 12px;
+  background: #a5a5a5;
+  margin-bottom: 20px;
+}
+
+.timer .progress-bar {
+  height: 100%;
+  background: #7b00ff;
+  border-radius: 12px;
+  transition: width 0.3s ease;
+}
+
+.timer .progress-text {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: white;
+  font-weight: 600;
+}
